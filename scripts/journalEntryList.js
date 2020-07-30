@@ -1,26 +1,27 @@
-/*
- *  Purpose:
- *    To render as many journal entry components as
- *    there are items in the collection exposed by the
- *    data provider component
- */
-import { useJournalEntries } from "./JournalDataProvider.js"
-import { journalEntryComponent } from "./JournalEntry.js"
 
-// DOM reference to where all entries will be rendered
-const entryLog = document.querySelector(".entry__area")
+import { useJournalEntries, getEntries } from "./journalDataProvider.js"
+import { journalEntryComponent } from "./journalEntryHTMLConverter.js"
 
-export const EntryListComponent = () => {
-    // Use the journal entry data from the data provider component
-    const entries = useJournalEntries()
-    
 
-    for (const entry of entries) {
-        
-        /*
-            Invoke the component that returns an
-            HTML representation of a single entry
-        */
-        entryLog.innerHTML += journalEntryComponent(entry)
-    }
+const contentTarget = document.querySelector(".entry__area")
+const eventHub = document.querySelector(".container")
+
+eventHub.addEventListener("showEntriesClicked", customEvent => {
+    entryList()
+})
+
+export const entryList = () => {
+    getEntries()
+    .then(() => {
+        const allEntries = useJournalEntries()
+        render(allEntries)    
+    })
 }
+    const render = (entryArray) => {
+        const allEntriesConvertedtoStrings = entryArray.map(
+            (currentEntry) => {
+                return journalEntryComponent(currentEntry)
+            }
+        ).join("")
+        contentTarget.innerHTML = allEntriesConvertedtoStrings
+    }    

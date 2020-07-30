@@ -1,45 +1,34 @@
-/*
- *   Journal data provider for Daily Journal application
- *
- *      Holds the raw data about each entry and exports
- *      functions that other modules can use to filter
- *      the entries for different purposes.
- */
+let entries = []
 
-// This is the original data.
-const journal = [
-    {
-        id: 1,
-        date: "07/24/2025",
-        concept: "HTML & CSS",
-        entry: "We talked about HTML components and how to make grid layouts with Flexbox in CSS.",
-        mood: "happy"
-    },
-    {
-        id: 2,
-        date: "07/25/2025",
-        concept: "Functions",
-        entry: "We talked about javascript functions",
-        mood: "sad"
-    },
-    {
-        id: 3,
-        date: "07/26/2025",
-        concept: "Github",
-        entry: "learned how to use github repositories.",
-        mood: "meh"
-    }
 
-]
+const eventHub = document.querySelector(".container")
+const dispatchStateChangedEvent = () => {
+    const entryStateChangedEvent = new CustomEvent("entryStateChanged")
+    eventHub.dispatchEvent(entryStateChangedEvent)
+}
 
-/*
-    You export a function that provides a version of the
-    raw data in the format that you want
-*/
 export const useJournalEntries = () => {
-    const sortedByDate = journal.sort(
-        (currentEntry, nextEntry) =>
-            Date.parse(currentEntry.date) - Date.parse(nextEntry.date)
-    )
-    return sortedByDate
+    return entries.slice()
+}
+
+export const getEntries = () => {
+    return fetch('http://localhost:3000/entries')
+        .then(response => response.json())
+        .then(parsedEntries => {
+            entries = parsedEntries
+        })
+}
+
+export const saveEntry = (entry) => {
+    const jsonEntry = JSON.stringify(entry)
+    
+    return fetch ('http://localhost:3000/entries', {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: jsonEntry
+    })
+    .then(getEntries)
+    .then(dispatchStateChangedEvent)
 }
