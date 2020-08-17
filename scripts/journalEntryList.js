@@ -1,6 +1,7 @@
 
 import { useJournalEntries, getEntries } from "./journalDataProvider.js"
 import { journalEntryComponent } from "./journalEntryHTMLConverter.js"
+import { useMoods } from "./moodDataProvider.js"
 
 
 const contentTarget = document.querySelector(".entry__area")
@@ -18,10 +19,15 @@ export const entryList = () => {
     })
 }
     const render = (entryArray) => {
-        const allEntriesConvertedtoStrings = entryArray.map(
+        const moods = useMoods()
+        contentTarget.innerHTML = entryArray.reverse().map(
             (currentEntry) => {
-                return journalEntryComponent(currentEntry)
+                const foundMood = moods.find(
+                    (moodObject) => {
+                        return moodObject.id === currentEntry.moodID
+                    }
+                )
+                return journalEntryComponent(currentEntry, foundMood)
             }
         ).join("")
-        contentTarget.innerHTML = allEntriesConvertedtoStrings
     }    
