@@ -24,7 +24,7 @@ export const entryList = () => {
             (currentEntry) => {
                 const foundMood = moods.find(
                     (moodObject) => {
-                        return moodObject.id === currentEntry.moodID
+                        return moodObject.id === currentEntry.moodId
                     }
                 )
                 return journalEntryComponent(currentEntry, foundMood)

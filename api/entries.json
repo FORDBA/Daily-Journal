@@ -1,32 +1,18 @@
 {
   "entries": [
     {
-      "id": 1,
-      "date": "07/24/2025",
-      "concept": "HTML & CSS",
-      "entry": "We talked about HTML components and how to make grid layouts with Flexbox in CSS.",
-      "moodID": 1
+      "date": "2020-08-13",
+      "concept": "hello",
+      "entry": "feauidfphweufhse",
+      "moodId": 4,
+      "id": 1
     },
     {
-      "id": 2,
-      "date": "07/25/2025",
-      "concept": "Functions",
-      "entry": "We talked about javascript functions",
-      "moodID": 2
-    },
-    {
-      "id": 3,
-      "date": "07/26/2025",
-      "concept": "Github",
-      "entry": "learned how to use github repositories.",
-      "moodID": 4
-    },
-    {
-      "date": "2020-07-30",
-      "concept": "blah and blah",
-      "entry": "blibbity blah ",
-      "moodID": 2,
-      "id": 4
+      "date": "2020-08-18",
+      "concept": "wdwadfa",
+      "entry": "fwfwafrgwefege",
+      "moodId": 3,
+      "id": 2
     }
   ],
   "moods": [

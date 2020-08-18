@@ -18,7 +18,7 @@ eventHub.addEventListener("click", clickEvent => {
             date: entryDate.value,
             concept: entryConcept.value,
             entry: entryContent.value,
-            mood: entryMood.value
+            moodId: parseInt(entryMood.value)
 
         }
         saveEntry(newEntry)
