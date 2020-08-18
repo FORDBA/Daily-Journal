@@ -13,7 +13,9 @@ eventHub.addEventListener("click", clickEvent => {
         const entryConcept = document.querySelector("#entry--concept")
         const entryMood = document.querySelector("#entry--mood")
 
+        const moodId = parseInt(entryMood.value)
 
+        if(moodId !== 0){
         const newEntry = {
             date: entryDate.value,
             concept: entryConcept.value,
@@ -22,6 +24,10 @@ eventHub.addEventListener("click", clickEvent => {
 
         }
         saveEntry(newEntry)
+    }
+    else{
+        window.alert("you must select a mood!")
+    }
     }
     
 })

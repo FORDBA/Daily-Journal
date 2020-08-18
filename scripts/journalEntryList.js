@@ -11,13 +11,7 @@ eventHub.addEventListener("showEntriesClicked", customEvent => {
     entryList()
 })
 
-export const entryList = () => {
-    getEntries()
-    .then(() => {
-        const allEntries = useJournalEntries()
-        render(allEntries)    
-    })
-}
+
     const render = (entryArray) => {
         const moods = useMoods()
         contentTarget.innerHTML = entryArray.reverse().map(
@@ -31,3 +25,16 @@ export const entryList = () => {
             }
         ).join("")
     }    
+
+    export const entryList = () => {
+        getEntries()    
+        .then(useJournalEntries)
+        .then(render)
+    }
+    
+    
+    eventHub.addEventListener("showEntriesClicked", entryList)
+    eventHub.addEventListener("entryStateChanged", () => {
+        const newEntries = useJournalEntries()
+        render(newEntries)
+    })
